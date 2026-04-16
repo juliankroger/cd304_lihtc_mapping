@@ -1,4 +1,4 @@
-mapboxgl.accessToken = 'pk.eyJ1IjoiamFrOTMwNSIsImEiOiJjbW5pMnVrZm0wOTE2MnJwa3Zvc3JseWhnIn0.RTkBeX7djN2UCDyjipPyqg';
+mapboxgl.accessToken = 'MAPBOX_TOKEN_PLACEHOLDER';
 const mapOptions = new mapboxgl.Map({
     container: 'map_container',
     style: 'mapbox://styles/mapbox/standard', // Use the standard style for the map
