@@ -1,0 +1,37 @@
+
+/* FLEX BOX */ 
+
+body {
+    min-height: 100vh;
+    min-width: 100vw;
+    margin: 0;
+}
+
+.main_container{
+    display: flex;
+    min-width: calc(100vw - 300px);
+    min-height: calc(100vh - 150px);
+    /* calcs above makes sure main container is window size minus header/sidebar size */
+}
+
+.header{
+    height: 150px;
+    background: lightgray;
+    display: flex;
+}
+
+.sidebar {
+    min-width: 300px;
+    background: lightslategray;
+    display: flex;
+}
+
+.map_container {
+    flex-grow: 1;
+    background: white;
+    display: flex;
+}
+
+.inner_text {
+    margin: auto
+}
