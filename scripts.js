@@ -111,13 +111,15 @@ for (const feature of lihtc_projects.features) {
         );
 }
 
-// Adding geojson data fr
+// Adding geojson data using js file method - need to change to reference json 
 map.on('load', () => {
 
     // boundary cd304
     map.addSource('border_data', {
         type: 'geojson',
         data: cd304_boundary
+    // this name comes from border_data.js. 
+    // that file is also included in index.html as a src - don't forget this!
     });
 
     // vacant colp points
