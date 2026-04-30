@@ -3,7 +3,7 @@
 
 This interactive webmap project features LIHTC development and city-owned vacant properties in CD 304 (Bushwick). 
 
-You can see it live [here]().
+You can see it live [here](https://juliankroger.github.io/cd304_lihtc_mapping/).
 
 ### Data
 
