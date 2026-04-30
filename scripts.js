@@ -16,22 +16,9 @@ const map = new mapboxgl.Map({
     },
     projection: 'globe', // display the map as a globe
     zoom: 12.2, // initial zoom level, 0 is the world view, higher values zoom in
-    center: [-73.91658, 40.69540] // center the map on this longitude and latitude
+    center: [-73.91658, 40.69540], // center the map on this longitude and latitude
+    interactiveLayerIds: ['cd304_lihtc'] // Make the LIHTC layer clickable
 });
-
-// add LIHTC project markers to map
-// for (const feature of lihtc_projects.features) {
-    // create a HTML element for each feature
-   // const el = document.createElement('div');
-   // el.className = 'marker';
-    // make a marker for each feature and add to the map
-   // new mapboxgl.Marker(el)
-     //   .setLngLat(feature.geometry.coordinates).addTo(map)
-       // .setPopup(
-         //   new mapboxgl.Popup({ offset: 25 })
-           //     .setText(feature.properties["Project.Name"])
-//        );
-// }
 
 // Adding geojson data using js file method - need to change to reference json 
 map.on('load', () => {
@@ -60,7 +47,7 @@ map.on('load', () => {
         type: 'circle',
         source: 'lihtc_data',
         layout: {},
-        paint: {}
+        paint: { 'circle-color': '#e55e55' },
     })
 
     map.addLayer({
@@ -78,4 +65,55 @@ map.on('load', () => {
         layout: {}
     })
 
+    map.addLayer({
+        id: 'cd304_lihtc_highlight',
+        type: 'circle',
+        source: 'lihtc_data',
+        layout: {},
+        paint: {
+            'circle-color': '#3498db',
+            'circle-outline-color': '#ffffff'
+        },
+        filter: ['==', 'address', '']
+    })
+
+});
+
+map.on('click', 'cd304_lihtc', (e) => {
+    if (e.features.length > 0) {
+        // Get the clicked feature's properties from the GeoJSON
+        const properties = e.features[0].properties;
+
+        // Extract the data you want to display
+        const projectName = properties.project_name;
+        const address = properties.address;
+        const liUnits = properties.total_low_income_units;
+        const totalUnits = properties.total_num_of_units;
+        const field1 = properties.field_1;
+        const owner = properties.ownername;
+
+        // Update the info_box with the feature data
+        document.getElementById('info-title').textContent = projectName;
+        document.getElementById('info-address').textContent = address;
+        document.getElementById('info-li-units').textContent = liUnits;
+        document.getElementById('info-total-units').textContent = totalUnits;
+        document.getElementById('info-owner').textContent = owner;
+
+        // Highlight the clicked feature on the map
+        map.setFilter('cd304_lihtc_highlight', ['==', ['get', 'field_1'], field1]);
+    } else {
+        document.getElementById('info-title').textContent = 'Select a project to see its details';
+        document.getElementById('info-address').textContent = '-';
+        document.getElementById('info-li-units').textContent = '-';
+        document.getElementById('info-total-units').textContent = '-';
+        document.getElementById('info-owner').textContent = '-';
+    }
+});
+
+map.on('mouseover', 'cd304_lihtc', (e) => {
+        map.getCanvas().style.cursor = 'pointer';
 })
+
+    map.on('mouseleave', 'cd304_lihtc', () => {
+        map.getCanvas().style.cursor = '';
+    });

@@ -1,0 +1,89 @@
+---
+title: "CD4 Publicly Subsidized Housing"
+author: "Julian Mura-Kröger"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(dplyr)
+library(tidyverse)
+library(readxl)
+
+setwd("C:/Users/jakro/OneDrive - Chatham University/Documents/NYU/Courses/2026 Spring/URPL-GP 4650/nhpd_data")
+
+nhpd_full_df <- read.csv("All Properties.csv")
+lihtc_df <- read.csv("hud_user_lihtc_kings.csv")
+pluto_df <- read.csv("nyc_pluto_25v4_csv/pluto_25v4.csv")
+colp_df <- read.csv("City_Owned_and_Leased_Property_(COLP)_20260416.csv")
+
+```
+
+Maybe add some data about high income earners coming in and low income earners leaving? (on convo with Kim Darga)
+
+```{r Cleaning Dataset}
+
+#just filtering for Bushwick zipcodes to get more manageable dfs
+
+cd304_nhpd_df <- nhpd_full_df |>
+  filter(Zip == "11206" | Zip == "11207" | Zip == "11221" | Zip == "11237") |>
+  rename("address" = PropertyAddress)
+cd304_nhpd_df$address <- str_to_lower(cd304_nhpd_df$address, locale = "en") #just making everything lowercase
+cd304_nhpd_df$address <- trimws(cd304_nhpd_df$address)
+
+cd304_lihtc_df <- lihtc_df |>
+  filter(Project.ZIP.Code == "11206" | Project.ZIP.Code == "11207" | Project.ZIP.Code == "11221" | Project.ZIP.Code == "11237") |>
+  rename("address" = Project.Address)
+cd304_lihtc_df$address <- str_to_lower(cd304_lihtc_df$address, locale = "en")
+cd304_lihtc_df$address <- trimws(cd304_lihtc_df$address)
+cd304_lihtc_df <- cd304_lihtc_df |>
+  mutate(address = str_replace_all(address, "avenue", "ave"),
+         address = str_replace_all(address, "street", "st"),
+         address = str_replace_all(address, "boulevard", "blvd"),
+         address = str_replace_all(address, "van sinderen", "van sinderen ave")
+         )
+
+cd304_pluto_df <- pluto_df |>
+  filter(zipcode == "11206" | zipcode == "11207" | zipcode == "11221" | zipcode == "11237")
+cd304_pluto_df$address <- str_to_lower(cd304_pluto_df$address, locale = "en")
+cd304_pluto_df$address <- trimws(cd304_pluto_df$address)
+cd304_pluto_df <- cd304_pluto_df |>
+  mutate(address = str_replace_all(address, "avenue", "ave"),
+         address = str_replace_all(address, "street", "st"),
+         address = str_replace_all(address, "boulevard", "blvd"),
+         address = str_replace_all(address, "van sinderen avenue", "van sinderen ave")
+         )
+
+cd304_colp_df <- colp_df[colp_df$BBL %in% cd304_pluto_df$bbl,]
+cd304_colp_df <- cd304_colp_df |>
+  rename("bbl" = BBL)
+
+#joining pluto and nhpd data
+
+cd304_lihtc_join_df <- left_join(x = cd304_lihtc_df,
+                         y = cd304_pluto_df,
+                         by = join_by(address))
+
+final_lihtc_df <- cd304_lihtc_join_df |>
+  filter(!is.na(latitude)) 
+
+#joining pluto and colp data
+
+final_colp_df <- left_join(x = cd304_colp_df,
+                           y = cd304_pluto_df,
+                           by = join_by(bbl))
+final_colp_df <- final_colp_df |>
+  filter(USE.CODE == 1520)
+  
+```
+
+
+```{r export}
+
+write.csv(final_lihtc_df, "cd304_lihtc_projects.csv")
+write.csv(final_colp_df, "cd304_vacant_colp.csv")
+
+```
+

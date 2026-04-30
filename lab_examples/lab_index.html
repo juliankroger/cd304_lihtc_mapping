@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 4 - GeoJSON Demo | Mapbox GL JS</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="map"></div>
+    
+    <div id="tooltip" class="tooltip"></div>
+    
+    <!-- Demo Info Panel -->
+    <div class="demo-info-panel">
+        <h2>Class 4: GeoJSON & Interactivity</h2>
+        <p class="subtitle">NYC Map Visualization Demo</p>
+        <div class="divider"></div>
+        <h3>Features Demonstrated:</h3>
+        <ul class="features-list">
+            <li><strong>Data Sources:</strong> Borough boundaries, PLUTO study area, random points</li>
+            <li><strong>Data-Driven Styling:</strong> Categorical (land use) & sequential (units)</li>
+            <li><strong>Interactivity:</strong> Click events, hover tooltips, dynamic filters</li>
+            <li><strong>Navigation:</strong> FlyTo & fitBounds animations</li>
+            <li><strong>Layer Controls:</strong> Toggle visibility with checkboxes</li>
+        </ul>
+    </div>
+    
+    <!-- Property Info Panel (slides in on click) -->
+    <div id="info-panel" class="info-panel">
+        <button id="close-panel" class="close-btn">&times;</button>
+        <h3 id="info-title"></h3>
+        <table id="info-table">
+            <tr>
+                <td class="property-label">Land Use:</td>
+                <td id="info-landuse" class="property-value"></td>
+            </tr>
+            <tr>
+                <td class="property-label">Residential Units:</td>
+                <td id="info-unitsres" class="property-value"></td>
+            </tr>
+        </table>
+    </div>
+    
+    <!-- Controls Container -->
+    <div class="controls-container">
+        <!-- Style Controls -->
+        <div class="control-panel">
+            <div class="panel-header">Data Visualization</div>
+            <button id="landuse-btn" class="panel-button">Land Use (Categorical)</button>
+            <button id="units-btn" class="panel-button">Residential Units (Sequential)</button>
+        </div>
+        
+        <!-- Layer Visibility -->
+        <div class="control-panel">
+            <div class="panel-header">Layer Visibility</div>
+            <label class="toggle-item">
+                <input type="checkbox" id="borough-toggle" checked>
+                <span>Borough Boundaries</span>
+            </label>
+            <label class="toggle-item">
+                <input type="checkbox" id="study-area-toggle" checked>
+                <span>Study Area</span>
+            </label>
+            <label class="toggle-item">
+                <input type="checkbox" id="circles-toggle" checked>
+                <span>Random Points</span>
+            </label>
+        </div>
+        
+        <!-- Navigation Controls -->
+        <div class="control-panel">
+            <div class="panel-header">Navigation</div>
+            <button id="bronx-btn" class="panel-button">Bronx</button>
+            <button id="brooklyn-btn" class="panel-button">Brooklyn</button>
+            <button id="manhattan-btn" class="panel-button">Manhattan</button>
+            <button id="queens-btn" class="panel-button">Queens</button>
+            <button id="staten-island-btn" class="panel-button">Staten Island</button>
+            <button id="east-village-btn" class="panel-button small-btn">East Village Study Area</button>
+        </div>
+    </div>
+    
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.js"></script>
+    <script src="js/line-data.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>
