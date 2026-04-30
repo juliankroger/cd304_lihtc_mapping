@@ -12,7 +12,7 @@ The project relies on data from a few key sources:
 - [HUD's Property Level LIHTC Data](https://www.huduser.gov/portal/datasets/lihtc/property.html) on LIHTC projects
 - [DCP's Primary Land Use Tax Lot Output (PLUTO)](https://data.cityofnewyork.us/City-Government/Primary-Land-Use-Tax-Lot-Output-PLUTO-/64uk-42ks/about_data) dataset
 
-Some light cleaning was done in a separate .rmd file to filter and join the LIHTC and PLUTO datasets in order to pull BBL information for the former. All three were edited briefly in QGIS to transform their data structure from .csv to .geojson.
+Some light cleaning was done in a separate `.rmd` file to filter and join the LIHTC and PLUTO datasets in order to pull BBL information for the former. All three were edited briefly in QGIS to transform their data structure from `.csv` to `.geojson`.
 
 ### Features
 
@@ -41,3 +41,11 @@ This project includes:
 - QGIS
 - R 4.1.3
 name of the project and information about the content and technical details of the project. Why does it exist, what data did you use, what tools/technology are you using, etc?
+
+### To do:
+- Fix header and sidebar formatting
+- Change COLP data to actual lots
+- Include more data for current projects
+- Add lot sizes to COLP data and a rough estimation of how many affordable units could be added for each, to show up when clicked
+- Check public space map for different zoom level marker sizings
+- Add more info on methodology
