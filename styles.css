@@ -11,12 +11,12 @@ body {
 .main_container{
     display: flex;
     min-width: calc(100vw - 300px);
-    min-height: calc(100vh - 150px);
+    min-height: calc(100vh - 170px);
     /* calcs above makes sure main container is window size minus header/sidebar size */
 }
 
 .header{
-    height: 150px;
+    height: 170px;
     background: lightslategray;
     display: flex;
     flex-direction: column;
@@ -45,13 +45,16 @@ body {
 }
 
 .h1 {
-    font-size: 50px;
+    font-size: 40px;
     padding: 0px;
     margin: 0px;
 }
 
 .p {
-    font-size: 8px;
+    font-size: 14px;
+    margin: 2px;
+    padding: 0px;
+    text-wrap: pretty;
 }
 
 .h3 {
