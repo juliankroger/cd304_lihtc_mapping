@@ -21,14 +21,17 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-wrap: pretty;
 }
 
 .sidebar {
     min-width: 300px;
+    max-width: 300px;
     background: lightgray;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px;
 }
 
 .map_container {
@@ -43,6 +46,8 @@ body {
 
 .h1 {
     font-size: 50px;
+    padding: 0px;
+    margin: 0px;
 }
 
 .p {
@@ -51,6 +56,8 @@ body {
 
 .h3 {
     font-size: 20px;
+    margin: 0px;
+    padding: 0px;
 }
 
 .marker {

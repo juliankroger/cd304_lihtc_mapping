@@ -49,3 +49,4 @@ name of the project and information about the content and technical details of t
 - Add lot sizes to COLP data and a rough estimation of how many affordable units could be added for each, to show up when clicked
 - Check public space map for different zoom level marker sizings
 - Add more info on methodology
+- Redo data joining to keep raw address values
