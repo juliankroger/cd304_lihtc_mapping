@@ -46,9 +46,7 @@ name of the project and information about the content and technical details of t
 - Fix header and sidebar formatting
 - Change COLP data to actual lots
 - Include more data for current projects
-- Add lot sizes to COLP data and a rough estimation of how many affordable units could be added for each, to show up when clicked
+- Add rough estimation of how many affordable units could be added for each; add methodology page when done
 - Check public space map for different zoom level marker sizings
-- Add more info on methodology
-- Redo data joining to keep raw address values
-- add a legend
+- Redo data joining to keep raw address values for LIHTC projects
 - Add a semi transparent shade polygon over everything that isn't Bushwick

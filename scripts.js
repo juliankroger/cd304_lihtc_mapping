@@ -15,8 +15,8 @@ const map = new mapboxgl.Map({
         }
     },
     projection: 'globe', // display the map as a globe
-    zoom: 12.2, // initial zoom level, 0 is the world view, higher values zoom in
-    center: [-73.91658, 40.69540], // center the map on this longitude and latitude
+    zoom: 12.6, // initial zoom level, 0 is the world view, higher values zoom in
+    center: [-73.90489, 40.69451], // center the map on this longitude and latitude
     interactiveLayerIds: ['cd304_lihtc'] // Make the LIHTC layer clickable
 });
 
@@ -38,6 +38,11 @@ map.on('load', () => {
     map.addSource('vacant_colp_data', {
         type: 'geojson',
         data: './data/cd304_vacant_colp_clip.geojson'
+    })
+
+    map.addSource('cd_shadow', {
+        type: 'geojson',
+        data: './data/cd_boundaries_shading_simplified.geojson'
     })
 
     // see class 4 for adding the points properly and to do data-driven styling
@@ -66,6 +71,17 @@ map.on('load', () => {
     })
 
     map.addLayer({
+        id: 'cd_shadow_layer',
+        type: 'fill',
+        source: 'cd_shadow',
+        layout: {},
+        'paint': {
+            'fill-color': '#545454', // blue color fill
+            'fill-opacity': 0.5,
+        }
+    })
+
+    map.addLayer({
         id: 'cd304_lihtc_highlight',
         type: 'circle',
         source: 'lihtc_data',
@@ -78,7 +94,7 @@ map.on('load', () => {
         filter: ['==', 'address', '']
     })
 
-        map.addLayer({
+    map.addLayer({
         id: 'cd304_colp_highlight',
         type: 'circle',
         source: 'vacant_colp_data',
@@ -150,7 +166,7 @@ map.on('click', 'cd304_colp', (e) => {
         document.getElementById('colp-parcel-div').style.display = 'unset';
 
         document.getElementById('colp-address').textContent = colpAddress;
-        document.getElementById('colp-owner').textContent = 'Owner: ' +owner;
+        document.getElementById('colp-owner').textContent = 'Owner: ' + owner;
         document.getElementById('colp-zoning').textContent = 'Residential Zoning: ' + zoning;
         document.getElementById('colp-far').textContent = 'Residential FAR: ' + far;
         document.getElementById('colp-parcel-size').textContent = 'Parcel Size (sq ft): ' + size;
@@ -164,7 +180,7 @@ map.on('click', 'cd304_colp', (e) => {
 
         // Highlights the clicked feature on the map
         map.setFilter('cd304_colp_highlight', ['==', ['get', 'field_1'], field1]);
-}  else {
+    } else {
         document.getElementById('colp-address').textContent = '-';
         document.getElementById('colp-owner').textContent = '-';
         document.getElementById('colp-zoning').textContent = '-';
@@ -178,7 +194,7 @@ map.on('click', 'cd304_colp', (e) => {
 const clearInfoButton = document.getElementById('clear-info-button');
 
 // Setting what the clear info button does - removes map filter and data from info box
-clearInfoButton.addEventListener('click', function() {
+clearInfoButton.addEventListener('click', function () {
     document.getElementById('existing-lihtc-div').style.display = 'none';
     document.getElementById('colp-parcel-div').style.display = 'none';
     document.getElementById('clear-info-button').style.visibility = 'hidden';
@@ -188,17 +204,17 @@ clearInfoButton.addEventListener('click', function() {
 })
 
 map.on('mouseover', 'cd304_lihtc', (e) => {
-        map.getCanvas().style.cursor = 'pointer';
+    map.getCanvas().style.cursor = 'pointer';
 })
 
-    map.on('mouseleave', 'cd304_lihtc', () => {
-        map.getCanvas().style.cursor = '';
-    });
+map.on('mouseleave', 'cd304_lihtc', () => {
+    map.getCanvas().style.cursor = '';
+});
 
 map.on('mouseover', 'cd304_colp', (e) => {
-        map.getCanvas().style.cursor = 'pointer';
+    map.getCanvas().style.cursor = 'pointer';
 })
 
-    map.on('mouseleave', 'cd304_colp', () => {
-        map.getCanvas().style.cursor = '';
-    });
+map.on('mouseleave', 'cd304_colp', () => {
+    map.getCanvas().style.cursor = '';
+});
