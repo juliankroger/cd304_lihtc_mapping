@@ -84,7 +84,7 @@ map.on('click', 'cd304_lihtc', (e) => {
         // Get the clicked feature's properties from the GeoJSON
         const properties = e.features[0].properties;
 
-        // Extract the data you want to display
+        // Extracting data from the properties to display in the info box
         const projectName = properties.project_name;
         const address = properties.address;
         const liUnits = properties.total_low_income_units;
@@ -98,8 +98,13 @@ map.on('click', 'cd304_lihtc', (e) => {
         document.getElementById('info-li-units').textContent = liUnits;
         document.getElementById('info-total-units').textContent = totalUnits;
         document.getElementById('info-owner').textContent = owner;
+        // Makes the info table and clear info button visible
+        document.getElementById('info-table').style.visibility = 'visible';
+        document.getElementById('clear-info-button').style.visibility = 'visible';
+        // Hides the select something nudge text
+        document.getElementById('select-something-nudge').style.visibility = 'hidden';
 
-        // Highlight the clicked feature on the map
+        // Highlights the clicked feature on the map
         map.setFilter('cd304_lihtc_highlight', ['==', ['get', 'field_1'], field1]);
     } else {
         document.getElementById('info-title').textContent = 'Select a project to see its details';
@@ -109,6 +114,8 @@ map.on('click', 'cd304_lihtc', (e) => {
         document.getElementById('info-owner').textContent = '-';
     }
 });
+
+
 
 map.on('mouseover', 'cd304_lihtc', (e) => {
         map.getCanvas().style.cursor = 'pointer';

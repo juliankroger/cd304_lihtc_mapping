@@ -14,16 +14,22 @@
 <body>
 
     <header class="header" id="header_id">
-        <h1 class="h1"> LIHTC in Community District 304 (Bushwick) </h1>
-        <p class="p"> The Low Income Housing Tax Credit (LIHTC) is one of the most important funding sources for affordable housing development in New York City, making possible the creation of more than 3,000 units of permanently affordable housing in 2024 alone. </p>
-        <p class="p"> This map provides details on affordable housing projects in Bushwick which have received LIHTC funding at some point, as well as opportunities for new projects. Considering the fact that land in Bushwick can cost upwards of $650 per square foot, city-owned vacant lots often present the best chances of new affordable housing construction. </p>
-        <h3 class="h3"> Click on a project or site to see more details about it </h3>
+        <div id="header_text">
+            <h1 class="h1"> LIHTC in Community District 304 (Bushwick) </h1>
+            <p class="p"> The Low Income Housing Tax Credit (LIHTC) is one of the most important funding sources for
+                affordable housing development in New York City, making possible the creation of more than 3,000 units
+                of permanently affordable housing in 2024 alone. </p>
+            <p class="p"> This map provides details on affordable housing projects in Bushwick which have received LIHTC
+                funding at some point, as well as opportunities for new projects. Considering the fact that land in
+                Bushwick can cost upwards of $650 per square foot, city-owned vacant lots often present the best chances
+                of new affordable housing construction. </p>
+        </div>
     </header>
 
     <div class="main_container">
 
         <aside class="sidebar" id="info_box">
-            <h1 id="info-title"> </h1>
+            <h1 id="info-title" class="h2"> </h1>
             <table id="info-table">
                 <tr>
                     <td class="property-label">Address:</td>
@@ -42,6 +48,8 @@
                     <td id="info-total-units" class="property-value"></td>
                 </tr>
             </table>
+            <p id="select-something-nudge"> Select a project to see its details </p>
+            <button id="clear-info-button"> Clear Info</button>
         </aside>
 
         <main class="map_container" id="map_container">
