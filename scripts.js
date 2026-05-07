@@ -78,6 +78,19 @@ map.on('load', () => {
         filter: ['==', 'address', '']
     })
 
+        map.addLayer({
+        id: 'cd304_colp_highlight',
+        type: 'circle',
+        source: 'vacant_colp_data',
+        layout: {},
+        paint: {
+            'circle-color': '#ff0000',
+            'circle-outline-color': '#ffffff',
+            'circle-radius': 6,
+        },
+        filter: ['==', 'address', '']
+    })
+
 });
 
 map.on('click', 'cd304_lihtc', (e) => {
@@ -96,7 +109,6 @@ map.on('click', 'cd304_lihtc', (e) => {
         // Update the info_box with the feature data
         document.getElementById('existing-lihtc-div').style.display = 'unset';
 
-        document.getElementById('existing-dummy').textContent = 'Existing LIHTC Project';
         document.getElementById('info-title').textContent = projectName;
         document.getElementById('info-address').textContent = address;
         document.getElementById('info-owner').textContent = 'Owned by: ' + owner;
@@ -120,14 +132,59 @@ map.on('click', 'cd304_lihtc', (e) => {
     }
 });
 
+map.on('click', 'cd304_colp', (e) => {
+    if (e.features.length > 0) {
+        // Get the clicked feature's properties from the GeoJSON
+        const properties = e.features[0].properties;
+
+        // Extracting data from the properties to display in the info box
+        const colpAddress = properties.ADDRESS;
+        const owner = properties.ownername;
+        const zoning = properties.zonedist1;
+        const far = properties.residfar;
+        const size = properties.lotarea;
+        const valuation = properties.assesstot;
+        const estUnits = properties.estunits;
+
+        // Update the info_box with the feature data
+        document.getElementById('colp-parcel-div').style.display = 'unset';
+
+        document.getElementById('colp-address').textContent = colpAddress;
+        document.getElementById('colp-owner').textContent = 'Owner: ' +owner;
+        document.getElementById('colp-zoning').textContent = 'Residential Zoning: ' + zoning;
+        document.getElementById('colp-far').textContent = 'Residential FAR: ' + far;
+        document.getElementById('colp-parcel-size').textContent = 'Parcel Size (sq ft): ' + size;
+        document.getElementById('colp-land-val').textContent = 'Assessed Value: $' + valuation;
+        document.getElementById('colp-est-units').textContent = 'Estimated Units: ' + estUnits;
+
+        // Makes the clear info button visible
+        document.getElementById('clear-info-button').style.visibility = 'visible';
+        // Hides the select something nudge text
+        document.getElementById('select-something-nudge').style.visibility = 'hidden';
+
+        // Highlights the clicked feature on the map
+        map.setFilter('cd304_colp_highlight', ['==', ['get', 'field_1'], field1]);
+}  else {
+        document.getElementById('colp-address').textContent = '-';
+        document.getElementById('colp-owner').textContent = '-';
+        document.getElementById('colp-zoning').textContent = '-';
+        document.getElementById('colp-far').textContent = '-';
+        document.getElementById('colp-parcel-size').textContent = '-';
+        document.getElementById('colp-land-val').textContent = '-';
+        document.getElementById('colp-est-units').textContent = '-';
+    }
+});
+
 const clearInfoButton = document.getElementById('clear-info-button');
 
 // Setting what the clear info button does - removes map filter and data from info box
 clearInfoButton.addEventListener('click', function() {
     document.getElementById('existing-lihtc-div').style.display = 'none';
+    document.getElementById('colp-parcel-div').style.display = 'none';
     document.getElementById('clear-info-button').style.visibility = 'hidden';
     document.getElementById('select-something-nudge').style.visibility = 'visible';
     map.setFilter('cd304_lihtc_highlight', false);
+    map.setFilter('cd304_colp_highlight', false);
 })
 
 map.on('mouseover', 'cd304_lihtc', (e) => {
@@ -135,5 +192,13 @@ map.on('mouseover', 'cd304_lihtc', (e) => {
 })
 
     map.on('mouseleave', 'cd304_lihtc', () => {
+        map.getCanvas().style.cursor = '';
+    });
+
+map.on('mouseover', 'cd304_colp', (e) => {
+        map.getCanvas().style.cursor = 'pointer';
+})
+
+    map.on('mouseleave', 'cd304_colp', () => {
         map.getCanvas().style.cursor = '';
     });
