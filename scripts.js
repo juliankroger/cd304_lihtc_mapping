@@ -71,8 +71,9 @@ map.on('load', () => {
         source: 'lihtc_data',
         layout: {},
         paint: {
-            'circle-color': '#3498db',
-            'circle-outline-color': '#ffffff'
+            'circle-color': '#ff0000',
+            'circle-outline-color': '#ffffff',
+            'circle-radius': 6,
         },
         filter: ['==', 'address', '']
     })
@@ -93,13 +94,17 @@ map.on('click', 'cd304_lihtc', (e) => {
         const owner = properties.ownername;
 
         // Update the info_box with the feature data
+        document.getElementById('existing-lihtc-div').style.display = 'unset';
+
+        document.getElementById('existing-dummy').textContent = 'Existing LIHTC Project';
         document.getElementById('info-title').textContent = projectName;
         document.getElementById('info-address').textContent = address;
+        document.getElementById('info-owner').textContent = 'Owned by: ' + owner;
+
         document.getElementById('info-li-units').textContent = liUnits;
         document.getElementById('info-total-units').textContent = totalUnits;
-        document.getElementById('info-owner').textContent = owner;
-        // Makes the info table and clear info button visible
-        document.getElementById('info-table').style.visibility = 'visible';
+
+        // Makes the clear info button visible
         document.getElementById('clear-info-button').style.visibility = 'visible';
         // Hides the select something nudge text
         document.getElementById('select-something-nudge').style.visibility = 'hidden';
@@ -115,7 +120,15 @@ map.on('click', 'cd304_lihtc', (e) => {
     }
 });
 
+const clearInfoButton = document.getElementById('clear-info-button');
 
+// Setting what the clear info button does - removes map filter and data from info box
+clearInfoButton.addEventListener('click', function() {
+    document.getElementById('existing-lihtc-div').style.display = 'none';
+    document.getElementById('clear-info-button').style.visibility = 'hidden';
+    document.getElementById('select-something-nudge').style.visibility = 'visible';
+    map.setFilter('cd304_lihtc_highlight', false);
+})
 
 map.on('mouseover', 'cd304_lihtc', (e) => {
         map.getCanvas().style.cursor = 'pointer';

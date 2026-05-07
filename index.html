@@ -26,35 +26,53 @@
         </div>
     </header>
 
+
+
     <div class="main_container">
 
         <aside class="sidebar" id="info_box">
-            <h1 id="info-title" class="h2"> </h1>
-            <table id="info-table">
-                <tr>
-                    <td class="property-label">Address:</td>
-                    <td id="info-address" class="property-value"></td>
-                </tr>
-                <tr>
-                    <td class="property-label">Owner:</td>
-                    <td id="info-owner" class="property-value"></td>
-                </tr>
-                <tr>
-                    <td class="property-label">Low-Income Units:</td>
-                    <td id="info-li-units" class="property-value"></td>
-                </tr>
-                <tr>
-                    <td class="property-label">Total Units:</td>
-                    <td id="info-total-units" class="property-value"></td>
-                </tr>
-            </table>
-            <p id="select-something-nudge"> Select a project to see its details </p>
+            <div id="existing-lihtc-div">
+                <p class="p" id="existing-dummy"> </p>
+                <h1 id="info-title" class="h2"> </h1>
+                <p class="p" id="info-address"> </p>
+                <p class="p" id="info-owner"> </p>
+                <h3 class="h3" id="unit-mix-title"> Unit Mix </h3>
+                <table id="unit-mix-table">
+                    <tr>
+                        <td class="property-label">Low-Income Units:</td>
+                        <td id="info-li-units" class="property-value"></td>
+                    </tr>
+                    <tr>
+                        <td class="property-label">Total Units:</td>
+                        <td id="info-total-units" class="property-value"></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="colp-parcel-div">
+                <!-- going to add colp data structure here -->
+            </div>
+            <p id="select-something-nudge"> Select a project or parcel on the map to see details about its owner, unit
+                mix, and affordability. </p>
+
             <button id="clear-info-button"> Clear Info</button>
         </aside>
 
         <main class="map_container" id="map_container">
         </main>
 
+    </div>
+
+    <div id="legend">
+        <h4 class="h4" id="legend-title"> Legend </h4>
+        <div class="legend-item">
+            <div class="legend-circle" id="existing-lihtc-legend"> </div>
+            <span> Existing LIHTC Projects</span>
+        </div>
+        
+        <div class="legend-item">
+            <div class="legend-circle" id="colp-legend"> </div>
+            <span> Vacant City-Owned Parcels </span>
+        </div>
     </div>
 
     <script src="scripts.js"></script>

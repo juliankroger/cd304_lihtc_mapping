@@ -4,6 +4,52 @@ body {
     min-height: 100vh;
     min-width: 100vw;
     margin: 0;
+    font-family: "Gill Sans", sans-serif;
+}
+
+#legend{
+    position: absolute;
+    bottom: 40px;
+    right: 20px;
+    z-index: 1000;
+    background-color: lightgray;
+    padding: 10px;
+    height: 80px;
+    width: 160px;
+    display: flex;
+    flex-direction: column;
+}
+
+#legend-title {
+    font-size: 14px;
+    margin-bottom: 10px;
+    padding: 0;
+    text-align: center;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 7px;
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--ink-soft);
+}
+
+.legend-circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+#existing-lihtc-legend {
+    background-color: #e55e55;
+}
+
+#colp-legend {
+    background-color: #000000;
 }
 
 .main_container {
@@ -38,7 +84,7 @@ body {
     background: lightgray;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     padding: 20px;
     font-family: "Gill Sans", sans-serif;
 }
@@ -88,20 +134,28 @@ body {
     margin: 0px;
 }
 
-#info-table {
-    visibility: hidden;
+.h4 {
+    font-size: 18px;
+    padding: 0px;
+    margin: 0px;
+}
+
+#unit-mix-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
 }
 
 #clear-info-button {
     position: absolute;
     bottom: 20px;
     visibility: hidden;
-    background-color: #FFFFFF;
+    background-color: lightslategray;
     border: 0;
     border-radius: .5rem;
     box-sizing: border-box;
     color: #111827;
-    font-family: "Inter var", ui-sans-serif, system-ui, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: "Gill Sans", sans-serif;
     font-size: .875rem;
     font-weight: 600;
     line-height: 1.25rem;
@@ -117,7 +171,7 @@ body {
 }
 
 #clear-info-button:hover {
-    background-color: rgb(249, 250, 251);
+    background-color: #b1bbc4;
 }
 
 #clear-info-button:focus {
@@ -128,3 +182,13 @@ body {
 #clear-info-button:focus-visible {
     box-shadow: none;
 }
+
+/* Hides existing lihtc project info until a project is clicked on */
+#existing-lihtc-div {
+    display: none;
+}
+
+#colp-parcel-div {
+    display: none;
+}
+
