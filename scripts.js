@@ -107,10 +107,10 @@ map.on('load', () => {
         filter: ['==', 'address', '']
     })
 
-});
+}); 
 
 map.on('click', 'cd304_lihtc', (e) => {
-    if (e.features.length > 0) {
+    if (e.features.length > 0) { 
         // Get the clicked feature's properties from the GeoJSON
         const properties = e.features[0].properties;
 
@@ -139,6 +139,7 @@ map.on('click', 'cd304_lihtc', (e) => {
 
         // Highlights the clicked feature on the map
         map.setFilter('cd304_lihtc_highlight', ['==', ['get', 'field_1'], field1]);
+
     } else {
         document.getElementById('info-title').textContent = 'Select a project to see its details';
         document.getElementById('info-address').textContent = '-';
@@ -153,7 +154,7 @@ map.on('click', 'cd304_colp', (e) => {
         // Get the clicked feature's properties from the GeoJSON
         const properties = e.features[0].properties;
 
-        // Extracting data from the properties to display in the info box
+        // Extracting data from the properties to display in the info box 
         const colpAddress = properties.ADDRESS;
         const owner = properties.ownername;
         const zoning = properties.zonedist1;
@@ -180,6 +181,7 @@ map.on('click', 'cd304_colp', (e) => {
 
         // Highlights the clicked feature on the map
         map.setFilter('cd304_colp_highlight', ['==', ['get', 'field_1'], field1]);
+
     } else {
         document.getElementById('colp-address').textContent = '-';
         document.getElementById('colp-owner').textContent = '-';
