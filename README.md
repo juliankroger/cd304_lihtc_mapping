@@ -51,3 +51,4 @@ name of the project and information about the content and technical details of t
 - Redo data joining to keep raw address values for LIHTC projects
 - Add a semi transparent shade polygon over everything that isn't Bushwick
 - Turn COLP data into a table
+- Make table toggle the layers

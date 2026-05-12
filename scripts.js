@@ -1,5 +1,10 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiamFrOTMwNSIsImEiOiJjbW5pMnVrZm0wOTE2MnJwa3Zvc3JseWhnIn0.RTkBeX7djN2UCDyjipPyqg';
 
+const bounds = [
+    [-73.9880, 40.6665], // Southwest coordinates
+    [-73.8408, 40.7276]  // Northeast coordinates
+];
+
 const map = new mapboxgl.Map({
     container: 'map_container',
     style: 'mapbox://styles/mapbox/standard', // Use the standard style for the map
@@ -17,7 +22,8 @@ const map = new mapboxgl.Map({
     projection: 'globe', // display the map as a globe
     zoom: 12.6, // initial zoom level, 0 is the world view, higher values zoom in
     center: [-73.90489, 40.69451], // center the map on this longitude and latitude
-    interactiveLayerIds: ['cd304_lihtc'] // Make the LIHTC layer clickable
+    interactiveLayerIds: ['cd304_lihtc'], // Make the LIHTC layer clickable
+    maxBounds: bounds // prevents user from zooming out more than necessary
 });
 
 // Adding geojson data using js file method - need to change to reference json 
@@ -52,7 +58,17 @@ map.on('load', () => {
         type: 'circle',
         source: 'lihtc_data',
         layout: {},
-        paint: { 'circle-color': '#e55e55' },
+        paint: {
+            'circle-radius': {
+                property: 'total_num_of_units',
+                stops: [
+                    [0, 4],
+                    [10, 8],
+                    [100, 12],
+                    [1000, 16]
+                ]},
+            'circle-color': '#e55e55',
+        },
     })
 
     map.addLayer({
@@ -89,7 +105,14 @@ map.on('load', () => {
         paint: {
             'circle-color': '#ff0000',
             'circle-outline-color': '#ffffff',
-            'circle-radius': 6,
+            'circle-radius': {
+                property: 'total_num_of_units',
+                stops: [
+                    [0, 4],
+                    [10, 8],
+                    [100, 12],
+                    [1000, 16]
+                ]},
         },
         filter: ['==', 'address', '']
     })
@@ -107,12 +130,17 @@ map.on('load', () => {
         filter: ['==', 'address', '']
     })
 
-}); 
+});
+
+let lihtcOffBool = true;
+let colpOffBool = true;
 
 map.on('click', 'cd304_lihtc', (e) => {
-    if (e.features.length > 0) { 
+    if (e.features.length > 0 && colpOffBool === true) {
         // Get the clicked feature's properties from the GeoJSON
         const properties = e.features[0].properties;
+
+        lihtcOffBool = false; // This Boolean turns false when a LIHTC point is clicked, which we use in the COLP parcel IF statement to prevent it showing both at the same time in the sidebar.
 
         // Extracting data from the properties to display in the info box
         const projectName = properties.project_name;
@@ -150,9 +178,11 @@ map.on('click', 'cd304_lihtc', (e) => {
 });
 
 map.on('click', 'cd304_colp', (e) => {
-    if (e.features.length > 0) {
+    if (e.features.length > 0 && lihtcOffBool === true) {
         // Get the clicked feature's properties from the GeoJSON
         const properties = e.features[0].properties;
+
+        colpOffBool = false; // This Boolean turns true when a COLP point is clicked, which we use in the LIHTC project IF statement to prevent it showing both at the same time in the sidebar.
 
         // Extracting data from the properties to display in the info box 
         const colpAddress = properties.ADDRESS;
@@ -203,6 +233,9 @@ clearInfoButton.addEventListener('click', function () {
     document.getElementById('select-something-nudge').style.visibility = 'visible';
     map.setFilter('cd304_lihtc_highlight', false);
     map.setFilter('cd304_colp_highlight', false);
+
+    colpOffBool = true; // Turns the Boolean back to true when the info is cleared from the sidebar
+    lihtcOffBool = true; // Turns the Boolean back to true when the info is cleared from the sidebar
 })
 
 map.on('mouseover', 'cd304_lihtc', (e) => {
