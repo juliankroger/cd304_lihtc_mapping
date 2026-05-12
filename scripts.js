@@ -46,6 +46,12 @@ map.on('load', () => {
         data: './data/cd304_vacant_colp_clip.geojson'
     })
 
+    // vacant colp polygons
+    map.addSource('colp_polygons', {
+        type: 'geojson',
+        data: './data/colp_polygons_join.geojson'
+    })
+
     map.addSource('cd_shadow', {
         type: 'geojson',
         data: './data/cd_boundaries_shading_simplified.geojson'
@@ -68,6 +74,8 @@ map.on('load', () => {
                     [1000, 16]
                 ]},
             'circle-color': '#e55e55',
+            'circle-stroke-color': '#ffffff',
+            'circle-stroke-width': 2,
         },
     })
 
@@ -98,13 +106,25 @@ map.on('load', () => {
     })
 
     map.addLayer({
+        id: 'colp_polygon_layer',
+        type: 'fill',
+        source: 'colp_polygons',
+        layout: {},
+        'paint': {
+            'fill-color': '#0400ff', // blue color fill
+            'fill-opacity': 1,
+        }
+    })
+
+    map.addLayer({
         id: 'cd304_lihtc_highlight',
         type: 'circle',
         source: 'lihtc_data',
         layout: {},
         paint: {
             'circle-color': '#ff0000',
-            'circle-outline-color': '#ffffff',
+            'circle-stroke-color': '#ffffff',
+            'circle-stroke-width': 2,
             'circle-radius': {
                 property: 'total_num_of_units',
                 stops: [
