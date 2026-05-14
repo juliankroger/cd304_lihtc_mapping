@@ -10,6 +10,8 @@ const map = new mapboxgl.Map({
     style: 'mapbox://styles/mapbox/standard', // Use the standard style for the map
     config: {
         basemap: {
+            lightPreset: "dawn",
+            theme: "monochrome",
             showPointOfInterestLabels: false,
             showAdminBoundaries: false,
             show3dObjects: false,
@@ -184,6 +186,7 @@ map.on('click', 'cd304_lihtc', (e) => {
         document.getElementById('clear-info-button').style.visibility = 'visible';
         // Hides the select something nudge text
         document.getElementById('select-something-nudge').style.visibility = 'hidden';
+        document.getElementById('select-something-nudge-b').style.visibility = 'hidden';
 
         // Highlights the clicked feature on the map
         map.setFilter('cd304_lihtc_highlight', ['==', ['get', 'field_1'], field1]);
@@ -228,6 +231,7 @@ map.on('click', 'cd304_colp', (e) => {
         document.getElementById('clear-info-button').style.visibility = 'visible';
         // Hides the select something nudge text
         document.getElementById('select-something-nudge').style.visibility = 'hidden';
+        document.getElementById('select-something-nudge-b').style.visibility = 'hidden';
 
         // Highlights the clicked feature on the map
         map.setFilter('cd304_colp_highlight', ['==', ['get', 'field_1'], field1]);
@@ -251,6 +255,7 @@ clearInfoButton.addEventListener('click', function () {
     document.getElementById('colp-parcel-div').style.display = 'none';
     document.getElementById('clear-info-button').style.visibility = 'hidden';
     document.getElementById('select-something-nudge').style.visibility = 'visible';
+    document.getElementById('select-something-nudge-b').style.visibility = 'visible';
     map.setFilter('cd304_lihtc_highlight', false);
     map.setFilter('cd304_colp_highlight', false);
 
